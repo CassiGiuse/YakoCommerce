@@ -1,0 +1,5 @@
+https://github.com/lutangar/cities.json
+https://gist.github.com/keeguon/2310008
+https://github.com/ShindouMihou/Jaikan
+https://docs.api.jikan.moe/#tag/manga/operation/getMangaSearch
+https://jikan.moe/#how-it-works
