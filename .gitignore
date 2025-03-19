@@ -13,11 +13,11 @@ app/build
 # Ignore project build
 build
 
-# Ignore server env variables
-app/src/main/liberty/config/*.env
-
-# Ignore every env file in resources
-app/src/main/resources/**/*.env
+# Ignore env variables
+app/src/main/**/*.env
 
 # trash files
 temp
+
+# Ignore logs
+app/logs

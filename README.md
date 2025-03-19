@@ -46,7 +46,7 @@ Per la progettazzione del database si sono tentute in considerazione le seguenti
   - **Trama** _(TEXT)_;
   - **Background** _(TEXT)_: storia editoria, distribuzione e riconoscimenti dell'opera;
   - **Prezzo** _(DECIMAL, NOT NULL)_;
-  - **Quantità** _(INT, NOT NULL)_;
+  - **Quantita** _(INT, NOT NULL)_;
 
 - **Ordine**
 
@@ -75,3 +75,7 @@ Per la progettazzione del database si sono tentute in considerazione le seguenti
   - **ID** _(INT, PK, AI)_: identificativo univoco della nazione;
   - **Denominazione** _(VARCHAR, NOT NULL)_: nome della città;
   - **Sigla** _(VARCHAR, NOT NULL)_: sigla della nazione (IT, FR, AW, ...);
+
+## Per il docente
+
+

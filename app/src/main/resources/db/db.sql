@@ -37,12 +37,12 @@ CREATE TABLE
     ID INT AUTO_INCREMENT PRIMARY KEY,
     Titotlo_Eng VARCHAR(255),
     Titotlo_Jap VARCHAR(255),
-    Titotlo_Def VARCHAR(255) NOT NULL,
+    Titotlo_Def VARCHAR(255) NOT NULL UNIQUE,
     URL_Immagine VARCHAR(255) NOT NULL,
     Trama TEXT,
     Background TEXT,
     Prezzo DECIMAL(10, 2) NOT NULL,
-    Quantità INT NOT NULL
+    Quantita INT NOT NULL
   );
 
 -- Creazione della tabella 'Ordine'
