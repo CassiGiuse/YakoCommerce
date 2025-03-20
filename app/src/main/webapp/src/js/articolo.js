@@ -1,9 +1,4 @@
-import { WebSocketClient } from "./WebSocketClient.js";
-import { addCartListener } from "./utils.js";
-
 function main() {
-  const ws = new WebSocketClient();
-
   document.getElementById("increaseQty").addEventListener("click", function () {
     let qty = document.getElementById("quantity");
     qty.value = parseInt(qty.value) + 1;

@@ -1,8 +1,4 @@
-import { WebSocketClient } from "./WebSocketClient.js";
-import { addCartListener } from "./utils.js";
-
 let cardsContainer;
-let ws;
 
 function buildArticolo(articolo) {
   const { id, titoloDef, urlImmagine, quantita, prezzo } = articolo;
@@ -44,7 +40,6 @@ function caricaArticoli() {
 }
 
 function main() {
-  ws = new WebSocketClient();
 
   cardsContainer = document.getElementById("cardsContainer");
 
