@@ -1,4 +1,4 @@
-package dao;
+package dao.articolo;
 
 import models.Articolo;
 import db.DatabaseManager;

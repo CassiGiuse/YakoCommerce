@@ -2,7 +2,7 @@ USE yako_commerce;
 
 -- Creazione della tabella 'Nazione'
 CREATE TABLE
-  Nazione (
+  IF NOT EXISTS Nazione (
     ID INT AUTO_INCREMENT PRIMARY KEY,
     Denominazione VARCHAR(255) NOT NULL,
     Sigla VARCHAR(10) NOT NULL
@@ -10,14 +10,14 @@ CREATE TABLE
 
 -- Creazione della tabella 'Citta'
 CREATE TABLE
-  Citta (
+  IF NOT EXISTS Citta (
     ID INT AUTO_INCREMENT PRIMARY KEY,
     Denominazione VARCHAR(255) NOT NULL
   );
 
 -- Creazione della tabella 'Utente'
 CREATE TABLE
-  Utente (
+  IF NOT EXISTS Utente (
     ID INT AUTO_INCREMENT PRIMARY KEY,
     Nome VARCHAR(255) NOT NULL,
     Cognome VARCHAR(255) NOT NULL,
@@ -33,7 +33,7 @@ CREATE TABLE
 
 -- Creazione della tabella 'Articolo'
 CREATE TABLE
-  Articolo (
+  IF NOT EXISTS Articolo (
     ID INT AUTO_INCREMENT PRIMARY KEY,
     Titotlo_Eng VARCHAR(255),
     Titotlo_Jap VARCHAR(255),
@@ -47,7 +47,7 @@ CREATE TABLE
 
 -- Creazione della tabella 'Ordine'
 CREATE TABLE
-  Ordine (
+  IF NOT EXISTS Ordine (
     ID INT AUTO_INCREMENT PRIMARY KEY,
     Data_Ordine TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     Totale DECIMAL(10, 2) NOT NULL,
@@ -62,14 +62,23 @@ CREATE TABLE
     FOREIGN KEY (ID_Utente) REFERENCES Utente (ID)
   );
 
--- Creazione della tabella 'Articoli_Ordinati'
+-- Creazione della tabella 'Carrello'
 CREATE TABLE
-  Articoli_Ordinati (
-    ID INT AUTO_INCREMENT PRIMARY KEY,
-    QT INT NOT NULL,
-    Prezzo_Unitario DECIMAL(10, 2) NOT NULL,
-    ID_Ordine INT NOT NULL,
-    ID_Articolo INT NOT NULL,
-    FOREIGN KEY (ID_Ordine) REFERENCES Ordine (ID),
-    FOREIGN KEY (ID_Articolo) REFERENCES Articolo (ID)
+  IF NOT EXISTS Carrello (
+    id VARCHAR(36) PRIMARY KEY,
+    id_utente VARCHAR(36) NULL,
+    data_creazione TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  );
+
+-- Creazione della tabella 'Elementi_Carrello'
+CREATE TABLE
+  IF NOT EXISTS Elementi_Carrello (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    id_carrello VARCHAR(36) NOT NULL,
+    id_articolo INT NOT NULL,
+    quantita INT NOT NULL,
+    prezzo_unitario DECIMAL(10, 2) NOT NULL,
+    stato ENUM ('carrello', 'ordine') DEFAULT 'carrello',
+    FOREIGN KEY (id_carrello) REFERENCES Carrello (id) ON DELETE CASCADE,
+    FOREIGN KEY (id_articolo) REFERENCES Articolo (id) ON DELETE CASCADE
   );

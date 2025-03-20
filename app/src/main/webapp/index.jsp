@@ -29,7 +29,6 @@
 
     <%@ include file="src/templates/footer.jsp" %>
     <script type="module" src="src/js/utils.js"></script>
-    <script type="module" src="src/js/WebSocketClient.js"></script>
     <script type="module" src="src/js/index.js"></script>
     <script
       src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"

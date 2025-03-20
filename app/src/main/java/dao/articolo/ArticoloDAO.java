@@ -1,4 +1,4 @@
-package dao;
+package dao.articolo;
 
 import java.util.List;
 import java.util.Optional;

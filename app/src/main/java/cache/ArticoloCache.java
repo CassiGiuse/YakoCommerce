@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit;
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
 
-import dao.ArticoloManager;
+import dao.articolo.ArticoloManager;
 import models.Articolo;
 
 public class ArticoloCache {

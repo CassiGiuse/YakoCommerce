@@ -30,7 +30,7 @@ Per la progettazzione del database si sono tentute in considerazione le seguenti
   - **Cognome** _(VARCHAR, NOT NULL)_;
   - **Data_Nascita** _(DATE, NOT NULL)_;
   - **Domicilio** _(VARCHAR, NOT NULL)_: via/piazza di residenza;
-  - **Residenza** _(INT, FK, NOT  NULL)_: città di residenza;
+  - **Residenza** _(INT, FK, NOT NULL)_: città di residenza;
   - **Email** _(VARCHAR, NOT NULL)_;
   - **Telefono** _(VARCHAR, NOT NULL)_;
   - **Data_Registrazione** _(TIMESTAMP, NOT NULL)_: data e ora della registrazione dell'utente;
@@ -56,15 +56,6 @@ Per la progettazzione del database si sono tentute in considerazione le seguenti
   - **Stato** _(ENUM)_: stato dell'ordine, ovvero, in attesa, pagato, spedito, consegnato o annullato;
   - **ID_Utente** _(INT, FK, NOT NULL)_: id dell'utente che ha effettuato l'ordine;
 
-
-- **Articoli_Ordinati**
-
-  - **ID** _(INT, PK, AI)_: identificativo univoco dell'articolo ordinato;
-  - **QT** _(INT, NOT NULL)_: quantità acquistata;
-  - **Prezzo_Unitario** _(DECIMAL, NOT NULL)_;
-  - **ID_Ordine** _(INT, FK, NOT NULL)_: id dell'ordine a cui si fa riferimento;
-  - **ID_Articolo** _(INT, FK, NOT NULL)_: id dell'articolo acquistato;
-
 - **Citta**
 
   - **ID** _(INT, PK, AI)_: identificativo univoco della città;
@@ -76,6 +67,26 @@ Per la progettazzione del database si sono tentute in considerazione le seguenti
   - **Denominazione** _(VARCHAR, NOT NULL)_: nome della città;
   - **Sigla** _(VARCHAR, NOT NULL)_: sigla della nazione (IT, FR, AW, ...);
 
+- **Carello**
+
+  - **ID** _(INT, PK, AI)_: identificativo univoco del carello;
+  - **ID_Utente** _(INT, NULL)_: id dell'utente registrato;
+  - **Data_Creazione** _(TIMESTAMP)_: data di creazione del carrello;
+
+  - _Note_:
+    - Utenti anonimi → Il id della tabella carrello sarà l'ID della sessione Servlet.
+    - Utenti loggati → Il id_utente verrà popolato al login.
+    - Al login, se un utente aveva un carrello anonimo, lo colleghiamo al suo account.
+
+- **Elemento_Carrello**
+
+  - **ID** _(INT, PK, AI)_: Identificativo univoco dell'elemento nel carrello;
+  - **ID_Carrello** _(VARCHAR(36), NOT NULL)_: Identificativo del carrello a cui appartiene l'elemento. Fa riferimento alla tabella **Carrello**;
+  - **ID_Articolo** _(INT, NOT NULL)_: Identificativo dell'articolo aggiunto al carrello. Fa riferimento alla tabella **Articolo**;
+  - **Quantita** _(INT, NOT NULL)_: Quantità dell'articolo presente nel carrello;
+  - **Prezzo_Unitario** _(DECIMAL(10, 2), NOT NULL)_: Prezzo unitario dell'articolo al momento dell'aggiunta al carrello;
+  - **Stato** _(ENUM('carrello', 'ordine'), DEFAULT 'carrello')_: Stato dell'elemento, che può essere:
+    - **carrello**: l'articolo è ancora nel carrello;
+    - **ordine**: l'articolo è stato confermato in un ordine;
+
 ## Per il docente
-
-

@@ -3,14 +3,14 @@ package db;
 import java.util.Random;
 
 import cache.ArticoloCache;
-import dao.ArticoloManager;
+import dao.articolo.ArticoloManager;
 import models.Articolo;
 import net.sandrohc.jikan.Jikan;
 import net.sandrohc.jikan.exception.JikanException;
 import net.sandrohc.jikan.model.manga.*;
+import static utils.SharedConsts.MANGAS_TO_FETCH;
 
 public class DatabaseInitializer {
-  private static final int MANGAS_TO_FETCH = 12;
 
   private DatabaseInitializer() {
   }
@@ -25,8 +25,10 @@ public class DatabaseInitializer {
 
         Manga manga = jikan.query().manga().get(mangaId).execute().block();
 
-        if (manga == null)
+        if (manga == null) {
+          i--;
           continue;
+        }
 
         final Articolo art = new Articolo(
             mangaId,

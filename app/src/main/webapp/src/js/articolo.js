@@ -12,8 +12,6 @@ function main() {
   });
 
   document.getElementById("navbar").classList.remove("sticky-top");
-
-  addCartListener(ws);
 }
 
 window.onload = main;

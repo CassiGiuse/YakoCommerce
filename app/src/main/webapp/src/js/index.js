@@ -25,6 +25,35 @@ function buildArticolo(articolo) {
   cardsContainer.insertAdjacentHTML("beforeend", html);
 }
 
+function foo() {
+  Array.from(document.getElementsByClassName("cart-button")).forEach(
+    (button) => {
+      button.addEventListener("click", (event) => {
+        const id = event.target.getAttribute("data-art-id");
+
+        const data = {
+          actionType: "ADD",
+          elementID: id,
+          qt: 1,
+          price: 23.0,
+        };
+
+        fetch(`api/cart`, { method: "POST", body: JSON.stringify(data) })
+          .then((response) => response.text())
+          .then((data) => {
+            console.log("Articolo aggiunto al carrello:", data);
+          })
+          .catch((error) => {
+            console.error(
+              "Errore nell'aggiunta dell'articolo al carrello:",
+              error
+            );
+          });
+      });
+    }
+  );
+}
+
 function caricaArticoli() {
   fetch("api/articoli")
     .then((response) => response.json())
@@ -32,7 +61,7 @@ function caricaArticoli() {
       data.forEach((articolo) => {
         buildArticolo(articolo);
       });
-      addCartListener(ws);
+      foo();
     })
     .catch((error) => {
       console.error("Errore nel caricamento degli articoli:", error);
@@ -40,7 +69,6 @@ function caricaArticoli() {
 }
 
 function main() {
-
   cardsContainer = document.getElementById("cardsContainer");
 
   caricaArticoli();

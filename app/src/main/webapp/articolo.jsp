@@ -153,7 +153,6 @@ prefix="c" %> <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
     <%@ include file="src/templates/footer.jsp" %>
 
     <script type="module" src="/app/src/js/utils.js"></script>
-    <script type="module" src="/app/src/js/WebSocketClient.js"></script>
     <script type="module" src="/app/src/js/articolo.js"></script>
 
     <script
