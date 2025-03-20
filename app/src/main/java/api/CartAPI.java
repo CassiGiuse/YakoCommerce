@@ -40,14 +40,26 @@ public class CartAPI extends HttpServlet {
         try (BufferedReader reader = request.getReader()) {
             JsonObject json = gson.fromJson(reader, JsonObject.class);
 
-            if (!json.has("actionType") || !json.has("itemID")) {
-                throw new IllegalArgumentException("Campi obbligatori mancanti: actionType e itemID");
+            if (!json.has("actionType")) {
+                throw new IllegalArgumentException("Campo obbligatorio mancante: actionType");
             }
 
-            CartActionType actionType = CartActionType.fromString(json.get("actionType").getAsString());
-            final int itemID = json.get("itemID").getAsInt();
-
             final Cart cart = CartCache.getCart(cartId);
+            CartActionType actionType = CartActionType.fromString(json.get("actionType").getAsString());
+
+            if (actionType == CartActionType.GET_ITEMS_COUNT) {
+                int totalItems = cart.getTotalItemsCount();
+                jsonResponse.addProperty("totalItems", totalItems);
+                handleResponse(response, jsonResponse, true, SC_OK, "Operazione avvennuta con successo!");
+                response.getWriter().write(gson.toJson(jsonResponse));
+                return;
+            }
+
+            if (!json.has("itemID")) {
+                throw new IllegalArgumentException("Campo obbligatorio mancante: itemID");
+            }
+
+            final int itemID = json.get("itemID").getAsInt();
 
             switch (actionType) {
                 case ADD -> {
@@ -63,6 +75,11 @@ public class CartAPI extends HttpServlet {
             }
 
             CartCache.updateCart(cartId, cart);
+
+            Cart oldCart = (Cart) session.getAttribute("currCart");
+            if (oldCart == null || !oldCart.equals(cart)) {
+                session.setAttribute("currCart", cart);
+            }
 
             handleResponse(response, jsonResponse, true, SC_OK, "Operazione completata con successo.");
         } catch (IllegalArgumentException e) {

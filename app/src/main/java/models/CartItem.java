@@ -1,56 +1,57 @@
 package models;
 
 import java.util.Optional;
-
 import cache.ArticoloCache;
 
 public class CartItem {
-  private int articleId;
-  private double price;
-  private int quantity;
-  private Articolo art;
+  private Articolo articolo;
+  private int requestedQuantity;
+
+  public CartItem(int articleId) {
+    this(articleId, 0);
+  }
 
   public CartItem(int articleId, int quantity) throws IllegalArgumentException {
-
-    final Optional<Articolo> artOpt = ArticoloCache.getArticolo(articleId);
-
+    Optional<Articolo> artOpt = ArticoloCache.getArticolo(articleId);
     if (!artOpt.isPresent())
-      throw new IllegalArgumentException("Impossibile aggiugere item selezionato");
+      throw new IllegalArgumentException("Impossibile aggiungere item selezionato");
 
-    final Articolo art = artOpt.get();
-    this.art = art;
-    this.articleId = articleId;
-    this.price = this.art.getPrezzo();
-    this.quantity = quantity;
+    this.articolo = artOpt.get();
+    this.requestedQuantity = quantity;
+  }
+
+  public Articolo getArticolo() {
+    return articolo;
   }
 
   public int getArticleId() {
-    return articleId;
+    return articolo.getId();
   }
 
   public double getPrice() {
-    return price;
+    return articolo.getPrezzo();
   }
 
-  public int getQuantity() {
-    return quantity;
+  public int getRequestedQuantity() {
+    return requestedQuantity;
   }
 
   public void increaseQuantity(int amount) {
-    this.quantity += amount;
+    this.requestedQuantity += amount;
   }
 
   public void decreaseQuantity() {
-    if (this.quantity > 0)
-      this.quantity--;
+    if (this.requestedQuantity > 0)
+      this.requestedQuantity--;
   }
 
   @Override
   public String toString() {
     return "CartItem{" +
-        "articleId=" + articleId +
-        ", price=" + price +
-        ", quantity=" + quantity +
+        "articleId=" + articolo.getId() +
+        ", title=" + articolo.getTitoloDef() +
+        ", price=" + articolo.getPrezzo() +
+        ", quantity=" + requestedQuantity +
         '}';
   }
 }

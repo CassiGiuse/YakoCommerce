@@ -29,14 +29,14 @@ public class CartDAO {
             cartStmt.setString(4, cart.getUserId());
             cartStmt.setTimestamp(5, java.sql.Timestamp.valueOf(cart.getCreatedAt()));
             cartStmt.executeUpdate();
-            
+
             for (Map.Entry<Integer, CartItem> entry : cart.getItems().entrySet()) {
                 CartItem item = entry.getValue();
                 itemsStmt.setString(1, cart.getId());
                 itemsStmt.setInt(2, item.getArticleId());
-                itemsStmt.setInt(3, item.getQuantity());
+                itemsStmt.setInt(3, item.getRequestedQuantity());
                 itemsStmt.setDouble(4, item.getPrice());
-                itemsStmt.setInt(5, item.getQuantity());
+                itemsStmt.setInt(5, item.getRequestedQuantity());
                 itemsStmt.setDouble(6, item.getPrice());
                 itemsStmt.executeUpdate();
             }
@@ -49,7 +49,7 @@ public class CartDAO {
     }
 
     public boolean deleteCart(String cartId) {
-        String sql = "DELETE FROM carrello WHERE id = ?";
+        final String sql = "DELETE FROM carrello WHERE id = ?";
 
         try (Connection conn = DatabaseManager.getDataSource().getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -58,8 +58,22 @@ public class CartDAO {
             return stmt.executeUpdate() > 0;
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            return false;
         }
-        return false;
     }
+
+    public boolean deleteOldAnonymousCarts(int minutes) {
+        final String sql = "DELETE FROM carrello WHERE id_utente IS NULL AND data_creazione < NOW() - INTERVAL ? MINUTE";
+
+        try (Connection conn = DatabaseManager.getDataSource().getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, minutes);
+            stmt.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            return false;
+        }
+
+    }
+
 }

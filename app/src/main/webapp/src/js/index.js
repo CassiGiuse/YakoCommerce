@@ -1,9 +1,16 @@
-import { addCartButtonListeners, addArtToCart } from "./utils.js";
+import {
+  addCartButtonListeners,
+  addArtToCart,
+  updateBadge,
+  goToCartListener,
+} from "./utils.js";
 
 const cardsContainer = document.getElementById("cardsContainer");
 
 function buildArticolo(articolo) {
   const { id, titoloDef, urlImmagine, quantita, prezzo } = articolo;
+
+  const p = prezzo.toFixed(2);
 
   const html = `
     <div class="col-lg-4 d-flex justify-content-center align-items-stretch mb-4">
@@ -13,9 +20,7 @@ function buildArticolo(articolo) {
           <h5 class="card-title">${titoloDef}</h5>
           <div class="mt-auto">
             <p class="card-text">🛒 Quantità: <strong>${quantita}</strong></p>
-            <p class="card-text">💰 Prezzo: <strong>€${prezzo.toFixed(
-              2
-            )}</strong></p>
+            <p class="card-text">💰 Prezzo: <strong>€${p}</strong></p>
             <button class="btn btn-success w-100 mb-2 add-cart-button" data-art-id="${id}">Aggiugni al carrello!</button>
             <a href="articolo/${id}" class="btn btn-outline-primary w-100">Visualizza dettagli</a>
           </div>
@@ -34,19 +39,17 @@ function caricaArticoli() {
       data.forEach((articolo) => {
         buildArticolo(articolo);
       });
-      addCartButtonListeners();
-    })
-    .catch((error) => {
-      console.error("Errore nel caricamento degli articoli:", error);
     });
 }
 
 function main() {
   caricaArticoli();
+  updateBadge();
   addCartButtonListeners((e) => {
     const id = e.target.getAttribute("data-art-id");
     addArtToCart(id);
   });
+  goToCartListener();
 }
 
 window.onload = main;

@@ -5,6 +5,7 @@ public enum CartActionType {
   REMOVE("REM"),
   CLEAR("CLS"),
   CHECKOUT("CHECKOUT"),
+  GET_ITEMS_COUNT("GET_ITEMS_COUNT"),
   GET_ITEMS("GET");
 
   private final String action;

@@ -10,13 +10,19 @@ public class Cart {
     private String id;
     private String userId;
     private LocalDateTime createdAt;
+    private LocalDateTime lastAccessTime;
     private Map<Integer, CartItem> items;
 
     public Cart(String id, String userId) {
         this.id = id;
         this.userId = userId;
         this.createdAt = LocalDateTime.now();
+        this.lastAccessTime = LocalDateTime.now();
         this.items = new HashMap<>();
+    }
+
+    public void updateLastAccessTime() {
+        this.lastAccessTime = LocalDateTime.now();
     }
 
     public String getId() {
@@ -43,26 +49,31 @@ public class Cart {
             Map<String, Object> itemDetails = new HashMap<>();
             itemDetails.put("id", item.getArticleId());
             itemDetails.put("price", item.getPrice());
-            itemDetails.put("quantity", item.getQuantity());
-            itemDetails.put("price", item.getPrice() * item.getQuantity());
+            itemDetails.put("quantity", item.getRequestedQuantity());
+            itemDetails.put("price", item.getPrice() * item.getRequestedQuantity());
             itemList.add(itemDetails);
         }
+        updateLastAccessTime();
 
         return itemList;
     }
 
+    public int getTotalItemsCount() {
+        updateLastAccessTime();
+        return items.values().stream()
+                .mapToInt(CartItem::getRequestedQuantity)
+                .sum();
+    }
+
     public void addItem(int articleId, int quantity) throws IllegalArgumentException {
-        items.putIfAbsent(articleId, new CartItem(articleId, quantity));
+        updateLastAccessTime();
+        items.putIfAbsent(articleId, new CartItem(articleId));
         items.get(articleId).increaseQuantity(quantity);
     }
 
     public void removeItem(int articleId) {
-        if (items.containsKey(articleId)) {
-            items.get(articleId).decreaseQuantity();
-            if (items.get(articleId).getQuantity() <= 0) {
-                items.remove(articleId);
-            }
-        }
+        updateLastAccessTime();
+        items.remove(articleId);
     }
 
     @Override
@@ -73,5 +84,9 @@ public class Cart {
                 ", createdAt=" + createdAt +
                 ", items=" + items +
                 '}';
+    }
+
+    public LocalDateTime getLastAccessTime() {
+        return this.lastAccessTime;
     }
 }

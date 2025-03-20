@@ -94,9 +94,9 @@ prefix="c" %> <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
               <div class="d-flex align-items-center mb-3">
                 <button
-                  class="btn btn-outline-secondary d-flex align-items-center justify-content-center"
-                  id="decreaseQty"
+                  class="btn btn-outline-secondary d-flex align-items-center justify-content-center decrease-qty"
                   style="height: 48px; width: 48px"
+                  data-art-id="${currArticolo.id}"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -119,11 +119,12 @@ prefix="c" %> <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                   value="1"
                   style="height: 48px; background-color: transparent"
                   readonly
+                  data-art-id="${currArticolo.id}"
                 />
                 <button
-                  class="btn btn-outline-secondary d-flex align-items-center justify-content-center"
-                  id="increaseQty"
+                  class="btn btn-outline-secondary d-flex align-items-center justify-content-center increase-qty"
                   style="height: 48px; width: 48px"
+                  data-art-id="${currArticolo.id}"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -141,9 +142,15 @@ prefix="c" %> <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                 </button>
               </div>
 
-              <button class="btn btn-primary btn-lg w-100 cart-button" data-art-id="${currArticolo.id}">
+              <button
+                class="btn btn-primary btn-lg w-100 add-cart-button"
+                data-art-id="${currArticolo.id}"
+              >
                 Aggiungi al carrello
               </button>
+              <a href="/app/index.jsp" class="btn btn-outline-primary mt-4"
+                >🏠 Torna alla Homepage</a
+              >
             </div>
           </div>
         </div>

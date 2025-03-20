@@ -1,24 +1,25 @@
-import { addCartButtonListeners, addArtToCart } from "./cart.js";
+import {
+  addCartButtonListeners,
+  addArtToCart,
+  updateBadge,
+  goToCartListener,
+  buttonQuantityListeners,
+} from "./utils.js";
 
 function main() {
-  document.getElementById("increaseQty").addEventListener("click", function () {
-    let qty = document.getElementById("quantity");
-    qty.value = parseInt(qty.value) + 1;
-  });
-
-  document.getElementById("decreaseQty").addEventListener("click", function () {
-    let qty = document.getElementById("quantity");
-    if (parseInt(qty.value) > 1) {
-      qty.value = parseInt(qty.value) - 1;
-    }
-  });
+  buttonQuantityListeners();
 
   document.getElementById("navbar").classList.remove("sticky-top");
 
+  updateBadge();
+
   addCartButtonListeners((e) => {
     const id = e.target.getAttribute("data-art-id");
-    addArtToCart(id);
+    const qtInput = document.getElementById("quantity");
+    const quantity = parseInt(qtInput.value);
+    addArtToCart(id, quantity);
   });
+  goToCartListener();
 }
 
 window.onload = main;
