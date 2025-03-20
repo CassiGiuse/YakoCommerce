@@ -1,6 +1,15 @@
 # YakoCommerce
 
-## Indice
+## Per il docente
+
+Ahimé non sono riuscito a finire in tempo, ci sono parecchie features interessanti ma non sono stato in grando di coprire tutto quello che la consegna chiedeva in tempo.
+Sono desolato... :(
+
+Per avviare il server (**JDK 17 richiesto**):
+
+```bash
+./gradlew libertyDev
+```
 
 ## Presentazione del progetto
 
@@ -88,5 +97,3 @@ Per la progettazzione del database si sono tentute in considerazione le seguenti
   - **Stato** _(ENUM('carrello', 'ordine'), DEFAULT 'carrello')_: Stato dell'elemento, che può essere:
     - **carrello**: l'articolo è ancora nel carrello;
     - **ordine**: l'articolo è stato confermato in un ordine;
-
-## Per il docente

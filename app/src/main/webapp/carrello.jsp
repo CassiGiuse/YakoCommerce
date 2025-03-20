@@ -28,6 +28,12 @@
                 </div>
             </c:when>
             <c:otherwise>
+                <div class="text-center mb-4">
+                    <a href="/checkout" class="btn btn-success btn-lg">
+                        🛒 Procedi al Checkout
+                    </a>
+                </div>
+
                 <div class="row row-cols-1 row-cols-md-2 g-4">
                     <c:forEach var="item" items="${currCart.items}">
                         <div class="col" data-art-id="${item.value.articolo.id}">
