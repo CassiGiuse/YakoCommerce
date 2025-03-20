@@ -1,7 +1,7 @@
 <nav class="navbar bg-dark border-bottom border-body sticky-top" id="navbar">
   <div class="container-fluid">
     <span class="navbar-brand mb-0 h1">${initParam.APP_NAME}</span>
-    <button class="btn btn-outline-success d-felx justify-content-center align-items-center">
+    <button class="btn btn-outline-success d-felx justify-content-center align-items-center" id="cart-button">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="24"

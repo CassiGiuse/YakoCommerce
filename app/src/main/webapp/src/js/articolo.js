@@ -1,3 +1,5 @@
+import { addCartButtonListeners, addArtToCart } from "./cart.js";
+
 function main() {
   document.getElementById("increaseQty").addEventListener("click", function () {
     let qty = document.getElementById("quantity");
@@ -12,6 +14,11 @@ function main() {
   });
 
   document.getElementById("navbar").classList.remove("sticky-top");
+
+  addCartButtonListeners((e) => {
+    const id = e.target.getAttribute("data-art-id");
+    addArtToCart(id);
+  });
 }
 
 window.onload = main;

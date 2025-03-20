@@ -44,15 +44,15 @@ public class Cart {
             itemDetails.put("id", item.getArticleId());
             itemDetails.put("price", item.getPrice());
             itemDetails.put("quantity", item.getQuantity());
-            itemDetails.put("totalPrice", item.getPrice() * item.getQuantity());
+            itemDetails.put("price", item.getPrice() * item.getQuantity());
             itemList.add(itemDetails);
         }
 
         return itemList;
     }
 
-    public void addItem(int articleId, double price, int quantity) {
-        items.putIfAbsent(articleId, new CartItem(articleId, price, quantity));
+    public void addItem(int articleId, int quantity) throws IllegalArgumentException {
+        items.putIfAbsent(articleId, new CartItem(articleId, quantity));
         items.get(articleId).increaseQuantity(quantity);
     }
 

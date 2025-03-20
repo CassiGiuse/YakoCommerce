@@ -28,6 +28,14 @@ public class CartCache {
     return cache.get(cartId, id -> new Cart(id, null));
   }
 
+  public static Cart getExistingCart(String cartId) throws models.CartNotFoundException {
+    Cart cart = cache.getIfPresent(cartId);
+    if (cart == null) {
+      throw new models.CartNotFoundException("Carrello non trovato!");
+    }
+    return cart;
+  }
+
   public static void updateCart(String cartId, Cart cart) {
     cache.put(cartId, cart);
   }
