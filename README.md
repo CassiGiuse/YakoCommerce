@@ -2,12 +2,13 @@
 
 ## Per il docente
 
-Gentile Docente,
+Gentile docente,
 
 con rammarico devo comunicare che, nonostante il mio impegno e la mia dedizione, non sono riuscito a completare tutte le funzionalità richieste entro il tempo previsto. 
 Il progetto include diverse feature interessanti, ma purtroppo non ho potuto coprire l'intera gamma di requisiti come avrei voluto.
 Mi scuso sinceramente per questa mancanza e apprezzo la comprensione per le difficoltà incontrate durante lo sviluppo. Ho dato il massimo per consegnare un lavoro di qualità, ma riconosco che ci sono aspetti che avrebbero meritato ulteriore attenzione e tempo.
-Per avviare il server (è richiesto JDK 17), è sufficiente eseguire il seguente comando:
+
+Per avviare il server (**è richiesto JDK 17**), è sufficiente eseguire il seguente comando:
 
 ```bash
 ./gradlew libertyDev
