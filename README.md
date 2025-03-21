@@ -4,15 +4,41 @@
 
 Gentile docente,
 
-con rammarico devo comunicare che, nonostante il mio impegno e la mia dedizione, non sono riuscito a completare tutte le funzionalità richieste entro il tempo previsto. 
+con rammarico devo comunicare che, nonostante il mio impegno e la mia dedizione, non sono riuscito a completare tutte le funzionalità richieste entro il tempo previsto.
 Il progetto include diverse feature interessanti, ma purtroppo non ho potuto coprire l'intera gamma di requisiti come avrei voluto.
 Mi scuso sinceramente per questa mancanza e apprezzo la comprensione per le difficoltà incontrate durante lo sviluppo. Ho dato il massimo per consegnare un lavoro di qualità, ma riconosco che ci sono aspetti che avrebbero meritato ulteriore attenzione e tempo.
 
-Per avviare il server (**è richiesto JDK 17**), è sufficiente eseguire il seguente comando:
+Per avviare il server (**è richiesto JDK 17**), è sufficiente seguire i seguenti passaggi:
+
+1. Configurare variabili per connessione al db: dentro la cartella [db](app/src/main/resources/db) va messo un file `.env` con le seguenti proprietà:
+
+```text
+DB_URL=jdbc:mysql://localhost:3306/nome_database
+DB_USER=utente
+DB_PASS="password"
+```
+
+dove:
+
+- **DB_URL** è l'url jdbc per connettersi al db
+- **DB_USER** è l'utente
+- **DB_PASS** è la password per il db
+
+2. Generare le tabelle del database dal file [db.sql](app/src/main/resources/db/db.sql) importando il file in phpmyadmin
+
+3. Eseguire il comando su cmd o powershell per avviare il server locale di sviluppo:
 
 ```bash
 ./gradlew libertyDev
 ```
+
+4. Eseguire il comando per aprire il browser:
+
+```bash
+./gradlew openBrowser
+```
+
+5. Attendere che il server si avvii e l'applicazione sia resa disponibile.
 
 ## Presentazione del progetto
 
